@@ -1,0 +1,9 @@
+
+<%= turbo_frame_tag id="new_post" do %>
+<h1 class='title is-4'>New Post</h1>
+    <%= form_with model: @post do |f|  %>       
+        <%= f.text_area :body, class: 'textarea is-link', placeholder: 'Write anything you like here...' %>
+        <br>
+        <%= f.submit class: 'button is-info' %>
+    <% end %>    
+<% end %>    

@@ -1,0 +1,9 @@
+<div class="field is-horizontal">
+    <%= form_with(model: [@post, @post.comments.build]) do |c| %>
+        <div class="field-body">
+            <div class="field"><%= c.text_area :body, placeholder: 'comment', class: 'textarea is-link is-small', rows:"2" %></div>
+            <div class="control"><%= c.submit class: 'button is-info is-small' %></div>
+        </div>
+        
+    <% end %>
+</div>

@@ -1,0 +1,6 @@
+<%= form_with(model: [@post, @comment]) do |f| %>
+    <%= f.hidden_field :parent_id %>
+    <%= f.text_area :body, placeholder: 'Reply' %>
+    <%= f.submit 'Reply' %>
+    <%= link_to 'Cancel', post_path(@post) %>
+<% end %>

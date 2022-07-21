@@ -1,0 +1,38 @@
+<div class="column is-one-third">
+    <h1>Respond to Your <%= current_user.pending_invitations.size %> Friend <%= (current_user.pending_invitations.size) == 1 ? 'Request' : 'Requests' %></h1>
+    <br>
+    <%#= link_to 'Sent Requests ', class: 'is-size-7'%>
+    <% if current_user.pending_invitations.size < 1 %>
+        <h2>You don't have any friend requests at the moment</h2>
+    <% else %>
+        <% current_user.pending_invitations.each do |request| %>
+            <div class="columns">
+                <div class="column is-four-fifths">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-48x48">
+                                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder Image">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4"><%= User.find(request.user_id).username %></p>
+                                    <p class="subtitle is-6"><%= User.find(request.user_id).email %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coulmn is-one-fifth is-flex is-flex-direction-column is-justify-content-center">
+                    <%= link_to 'Accept', accept_friend_path(request), class: 'button is-link' %>
+                    <%= link_to 'Reject', reject_friend_path(request), class: 'button is-danger is-light' %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <br>
+    <%= render '/invitations/find_friends' %>
+</div>

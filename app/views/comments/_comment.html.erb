@@ -1,0 +1,23 @@
+
+<div class="content">
+    <% if comment.user_id == current_user.id %>
+        <span class="is-size-7"> You </span>
+    <% else %>
+        <span class="is-size-7"><%= comment.user.username%></span>
+    <% end %>
+
+    <% if @post.created_at > Time.now.beginning_of_day %>
+        <span class="subtitle is-size-7"><%="wrote #{time_ago_in_words(@post.created_at)} ago:"%></span>
+    <% else %>
+        <span class="subtitle is-size-7"> <%= "wrote on #{@post.created_at.strftime('%b %d, %Y')}:" %></span>
+     <% end %>
+    <p class="is-size-7"><%= comment.body %></p>    
+
+    <%= link_to 'reply', new_post_comment_path(@post, parent_id: comment.id), remote: true, class: 'button is-info is-outlined is-small' %>
+    <% if comment.replies.any? %>
+        <% comment.replies.each do |reply| %>
+            <%= render partial: 'comments/reply', locals: { reply: reply} %>
+            <div id="reply-form-<%= comment.id %>"></div>
+        <% end %>
+    <% end %>
+</div>

@@ -1,0 +1,47 @@
+<div class="columns">
+    <div class="column is-two-fifths">
+        <div class = "content">
+            <% if @post.user_id == current_user.id %>
+                <span class="is-size-4"> You </span>
+            <% else %>
+                <span class="is-size-4"><%= User.find(@post.user_id).username%></span>
+            <% end %>
+    
+            <% if @post.created_at > Time.now.beginning_of_day %>
+                <span class="subtitle is-size-6"><%="posted #{time_ago_in_words(@post.created_at)} ago"%></span>
+            <% else %>
+                <span class="subtitle is-size-6"> <%= "posted on #{@post.created_at.strftime('%b %d, %Y')}" %></span>
+            <% end %>
+            <p><%= @post.body %></p>
+    
+            <span class="is-size-5"> </span>
+            <% if @pre_like %>
+                <span>
+                 <%= link_to(post_like_path(@post, @pre_like), title: 'Unlike',data: {turbo_method: :delete}) do%>
+                    <%= material_icon.thumb_down_off_alt %>
+                 <% end %>
+                </span>
+            <% else %>
+                <span>
+                    <%= link_to(post_likes_path(@post), title: 'Like' ,data: {turbo_method: :post}) do%>
+                        <%= material_icon.thumb_up %>
+                    <% end %>
+                </span>
+            <% end %>
+        </div>
+        <div>
+            <h4>Comments</h4>
+            <%= render @post.comments %>
+            <%= render 'comments/form' %>
+        </div>
+    </div>
+    
+    <div class="column is-one-fifth">
+        <% if current_user.id == @post.user_id %>
+            <br>
+            <div><%= link_to 'Edit', edit_post_path(@post), class: 'button is-info is-normal' %></div>
+            <br>
+            <div><%= link_to 'Delete', post_path(@post), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button is-danger is-outlined' %></div>
+        <% end %>
+    </div>
+</div>
