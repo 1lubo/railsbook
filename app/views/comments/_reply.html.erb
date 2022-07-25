@@ -1,2 +1,23 @@
-<%= reply.body %>
-<%= reply.user.username %>
+<% time = "" %>            
+<% if reply.created_at > Time.now.beginning_of_day %>
+    <% time = "#{time_ago_in_words(reply.created_at)} ago"%>
+<% else %>
+    <% time ="#{reply.created_at.strftime('%b %d, %Y')}" %>
+<% end %>
+    
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-left">
+                <%= image_tag user_avatar(User.find(reply.user_id), 48)%>
+            </div>
+            <div class="media-content">
+                <div class="has-text-weight-semibold"><%= link_to "#{User.find(reply.user_id).username}", user_path(reply.user_id) %></div>
+                <div class="content mb-1">
+                    <%= reply.body %>
+                </div>
+                <span class="is-size-7 has-text-weight-light"><%= time %></span>
+            </div>
+        </div>
+    </div>         
+</div>

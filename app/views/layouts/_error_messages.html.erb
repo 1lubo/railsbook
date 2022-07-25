@@ -1,16 +1,24 @@
 
+
+<% devise_flash = ""%>
 <% if flash && !flash.empty? %>
- <% flash.each do |key, message| %>
- <% if message.class == Array%>
-  <% message.each do |m| %>
-      <div class="alert alert-<%= key %> alert-dismissible fade show" role="alert">        
-        <h6><strong><%= m %></strong></h6>              
-      </div>
-  <% end %>
-  <%else %>
-    <div class="alert alert-<%= key %> alert-dismissible fade show" role="alert">        
-        <h6><strong><%= message %></strong></h6>              
-      </div>
+  <% flash.each do |key, message| %>
+    <% if key == 'notice' %>   
+        <% devise_flash = "success"%>
+      <% elsif key == 'alert' %>
+        <% devise_flash = "danger"%>
+      <% end %> 
+    <% if message.class == Array%>
+      <% message.each do |m| %>      
+        <div class="notification is-<%= "#{devise_flash}"%>">        
+          <h6><strong><%= m %></strong></h6>              
+        </div>
       <% end %>
- <% end %>  
+    <%else %>          
+      <div class="notification is-<%= "#{devise_flash}"%>">        
+        <h6><strong><%= message %></strong></h6>            
+      </div>        
+    <% end %>
+  <% end %>  
 <% end %>
+

@@ -3,6 +3,19 @@
 class UsersController < ApplicationController
   def index; end
 
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+  end
+
   def send_inviation
     new_friend = User.find(params[:format])
     current_user.send_inviation(new_friend)

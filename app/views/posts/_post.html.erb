@@ -1,17 +1,33 @@
-<%= link_to post_path(post), class: 'is-info' do %>
+        <% time = ""%>
+        <% if post.created_at > Time.now.beginning_of_day %>
+            <% time = "#{time_ago_in_words(post.created_at)} ago" %>
+        <% else %>
+            <% time = "#{post.created_at.strftime('%b %d, %Y')}" %>
+        <% end %>
         <div class="container">
             <div class="hero">
                 <div class="hero-body">
-                    <p class="title is-size-4"><%= User.find(post.user_id).username %></p>                    
-                    <% if post.created_at > Time.now.beginning_of_day %>
-                        <p class="subtitle is-size-6"><%=" #{time_ago_in_words(post.created_at)} ago"%></p>
-                    <% else %>
-                        <p class="subtitle is-size-6"> on <%= post.created_at.strftime('%b %d, %Y') %></p>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image">
+                                    <%= image_tag user_avatar(User.find(post.user_id), 60), class: 'is-rounded'%>
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-size-4"><%= link_to "#{User.find(post.user_id).username}", user_path(post.user_id) %></p>                    
+                                <p class="subtitle is-size-6"><%= time %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                    <%= link_to post_path(post), class: 'is-info' do %>
+                        <p class="content" ><%= post.body %></p>
                     <% end %>
-                    <p class="content" ><%= post.body %></p>
                     <span class="is-size-7"><%= post.likes.size %> <%= (post.likes.size) == 1 ? 'Like' : 'Likes' %></span>    
                     <span class="is-size-7"><%= post.comments.size %> <%= (post.comments.size) == 1 ? 'Comment' : 'Comments' %></span>    
                 </div>              
             </div>
         </div>        
-<% end %>

@@ -1,47 +1,69 @@
 <div class="columns">
     <div class="column is-two-fifths">
-        <div class = "content">
-            <% if @post.user_id == current_user.id %>
-                <span class="is-size-4"> You </span>
-            <% else %>
-                <span class="is-size-4"><%= User.find(@post.user_id).username%></span>
-            <% end %>
-    
-            <% if @post.created_at > Time.now.beginning_of_day %>
-                <span class="subtitle is-size-6"><%="posted #{time_ago_in_words(@post.created_at)} ago"%></span>
-            <% else %>
-                <span class="subtitle is-size-6"> <%= "posted on #{@post.created_at.strftime('%b %d, %Y')}" %></span>
-            <% end %>
-            <p><%= @post.body %></p>
-    
-            <span class="is-size-5"> </span>
-            <% if @pre_like %>
-                <span>
-                 <%= link_to(post_like_path(@post, @pre_like), title: 'Unlike',data: {turbo_method: :delete}) do%>
-                    <%= material_icon.thumb_down_off_alt %>
-                 <% end %>
-                </span>
-            <% else %>
-                <span>
-                    <%= link_to(post_likes_path(@post), title: 'Like' ,data: {turbo_method: :post}) do%>
-                        <%= material_icon.thumb_up %>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <%= image_tag user_avatar(User.find(@post.user_id), 80)%>
+            </div>
+            <div class="column is-four-fifths is-flex is-flex-direction-column">
+                <div class="content is-size-3 has-text-weight-medium mb-1">
+                    <% if @post.user_id == current_user.id %>
+                     You
+                    <% else %>                        
+                        <%= link_to "#{User.find(@post.user_id).username}", user_path(@post.user_id) %>
                     <% end %>
-                </span>
-            <% end %>
+                </div>
+                <div class="content is-size-7 has-text-weight-light">
+                    <% time = "" %>
+                    <% if @post.created_at > Time.now.beginning_of_day %>
+                        <% time = "posted #{time_ago_in_words(@post.created_at)} ago"%>
+                    <% else %>
+                        <% time = "posted on #{@post.created_at.strftime('%b %d, %Y')}" %>
+                    <% end %>
+                    <%= time %>
+                </div>
+            </div>
         </div>
-        <div>
-            <h4>Comments</h4>
-            <%= render @post.comments %>
+        <article class="message">
+            <div class="message-body">
+                <%= @post.body %>
+            </div>
+            <footer class="columns">                
+                <div class="column is-flex is-justify-content-space-evenly p-0">
+                    <% if current_user.id == @post.user_id %>
+                        <%= link_to 'Edit', edit_post_path(@post), class: 'button is-info is-small' %>
+                        <%= link_to 'Delete', post_path(@post), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button is-danger is-outlined is-small' %>
+                    <% end %>
+                </div>
+                <div class="column is-three-fifths"></div>
+            </footer>
+        </article>
+        <div class = "content">
+          <div class="content">              
+                <% if @pre_like %>
+                    <div>
+                        <%= link_to(post_like_path(@post, @pre_like), title: 'Unlike',data: {turbo_method: :delete}) do%>
+                           <%= material_icon.thumb_down_off_alt.md_24 %><span class="is-size-5 pl-1">Unlike</span>
+                        <% end %>
+                    </div>
+                     
+                <% else %>
+                    <div>
+                        <%= link_to(post_likes_path(@post), title: 'Like' ,data: {turbo_method: :post}) do%>
+                            <%= material_icon.thumb_up.md_24 %><span class="is-size-5 pl-1">Like</span>
+                        <% end %>
+                    </div>
+                    
+                <% end %>
+                    </div>
+          </div>
+        <div class="block mb-2">
             <%= render 'comments/form' %>
         </div>
+        
+        <div class="block">
+            <%= render @post.comments %>
+        </div>
     </div>
     
-    <div class="column is-one-fifth">
-        <% if current_user.id == @post.user_id %>
-            <br>
-            <div><%= link_to 'Edit', edit_post_path(@post), class: 'button is-info is-normal' %></div>
-            <br>
-            <div><%= link_to 'Delete', post_path(@post), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button is-danger is-outlined' %></div>
-        <% end %>
-    </div>
+  
 </div>

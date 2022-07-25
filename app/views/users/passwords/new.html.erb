@@ -1,16 +1,51 @@
-<h2>Forgot your password?</h2>
+<div class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="column is-two-fifths">
+          <div class="field">
+            <h2 class="has-text-centered">Forgot your password?</h2>
+          </div>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>    
+            <div class="field">              
+              <div class="control">
+                <%= f.text_field :username, autofocus: true, placeholder: 'Username', class: 'input' %>
+              </div>
+            </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+            <div class="field">
+              <div class="control">
+                <%= f.submit "Reset password", class: 'button is-link is-fullwidth' %>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
+            <div class="field">
+              <div class="control">
+                <%- if controller_name != 'sessions' %>
+                  <%= link_to "Log in", new_session_path(resource_name), class: 'button is-success is-fullwidth' %>
+                <% end %>
+              </div>
+            </div>  
+
+            <div class="field">
+              <div class="control">
+                <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                  <%= link_to "Sign up", new_registration_path(resource_name), class: 'button is-success is-outlined is-fullwidth' %>
+                <% end %>
+              </div>
+            </div>        
+
+            <div class="field">
+              <div class="control is-flex is-justify-content-center is-align-items-center">
+                <%- if devise_mapping.omniauthable? %>
+                  <%- resource_class.omniauth_providers.each do |provider| %>
+                    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post, class: '' %>
+                      <ion-icon name="logo-facebook"></ion-icon>
+                  <% end %>
+                <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

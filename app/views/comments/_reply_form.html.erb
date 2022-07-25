@@ -1,6 +1,15 @@
 <%= form_with(model: [@post, @comment]) do |f| %>
     <%= f.hidden_field :parent_id %>
-    <%= f.text_area :body, placeholder: 'Reply' %>
-    <%= f.submit 'Reply' %>
-    <%= link_to 'Cancel', post_path(@post) %>
+    <div class="field is-horizontal">
+        <div class="field-body">
+            <div class="field">
+                <div class="control"><%= f.text_area :body, placeholder: 'Reply', class: 'textarea', rows: "2" %></div>
+            </div>
+            <div class="field is-flex is-flex-direction-column is-align-items-center is-justify-content-space-between">
+                <div class="control"><%= f.submit 'Reply', class: 'button is-small is-success' %></div>
+                <div class="control"><%= link_to 'Cancel', post_path(@post), class: 'button is-small is-danger' %></div>
+            </div>
+            
+        </div>
+    </div>
 <% end %>

@@ -1,9 +1,8 @@
-<div class="field is-horizontal">
-    <%= form_with(model: [@post, @post.comments.build]) do |c| %>
-        <div class="field-body">
-            <div class="field"><%= c.text_area :body, placeholder: 'comment', class: 'textarea is-link is-small', rows:"2" %></div>
-            <div class="control"><%= c.submit class: 'button is-info is-small' %></div>
-        </div>
-        
-    <% end %>
-</div>
+<%= form_with(model: [@post, @post.comments.build], class: 'field is-horizontal') do |c| %>
+    <div class="field-body">
+        <div class="field"><%= c.text_area :body, placeholder: 'Write a comment ...', class: 'textarea is-small is-link', rows:"1" %></div>
+    </div>        
+    <div class="field-label">
+        <div class="control"><%= c.submit 'Comment', class: 'button is-danger is-small' %></div>   
+    </div>   
+<% end %>

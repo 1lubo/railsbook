@@ -1,3 +1,21 @@
-<div class="column is-one-third">
-    <!-- Show list of friends -->
-</div>
+
+<% if current_user.friends.nil? %>
+    <div class="title is-2">No friends to show</div>
+<% else %>
+    <div class="title is-2">Your friends:</div>
+    <% current_user.friends.each do |friend| %>
+        <div class="card">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-128x128"><%= image_tag user_avatar(User.find(friend.id), 100), class: 'is-rounded'%></figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-4"><%= link_to "#{friend.username}", user_path(friend.id) %></p>                        
+                        <p class="subtitle is-5">Joined <%= friend.created_at.strftime('%b %d, %Y')%></p>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    <% end %>
+<% end %>

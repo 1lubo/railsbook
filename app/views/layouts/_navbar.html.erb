@@ -1,4 +1,4 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar is-dark has-shadow" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="#">      
       <img src="https://img.icons8.com/cotton/64/000000/train--v2.png"/>      
@@ -7,16 +7,23 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-        <%= link_to 'Home', root_path, class: 'navbar-item' %>   
-        <%= link_to 'New Post', new_post_path, class: 'navbar-item' %>      
-        <%= link_to 'Friends', user_invitations_path(current_user.id), class: 'navbar-item' %>
+        <%= link_to 'Home', root_path, class: 'navbar-item' %>  
+        <%= link_to 'About', about_path, class: 'navbar-item' %>            
+        <%= link_to(user_invitations_path(current_user.id), title: 'Friends', class: 'navbar-item') do%>
+          <div class="has-text-link"><%= material_icon.groups.md_36 %></div>
+            <% if current_user.pending_invitations.size > 0 %>
+              <sup class="has-text-danger is-size-6 has-text-weight-bold	"><%=current_user.pending_invitations.size %></sup>
+            <% end %>
+        <% end %>
     </div>      
 
     <div class="navbar-end">
+      <%= image_tag user_avatar(current_user, 55)%> 
       <div class="navbar-item">
-        <div class="buttons">
-            <%= link_to current_user.username, edit_user_path(current_user), class: 'button is-warning'%>
-            <%= link_to 'Sign out', destroy_user_session_path, data: {turbo_method: :delete}, class: 'button is-light' %>          
+      
+        <div class="buttons">                       
+            <%= link_to current_user.username, edit_user_registration_path(current_user), class: 'button is-success is-outlined'%>            
+            <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'button is-light' %>
         </div>
       </div>
     </div>

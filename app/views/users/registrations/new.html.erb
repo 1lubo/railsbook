@@ -1,36 +1,80 @@
-<h2>Sign up</h2>
-
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+<% if resource.errors.any? %>
+  <% flash['alert'] = [] %>  
+  <% resource.errors.full_messages.each do |message| %>
+    <% flash['alert'] << message %>
+  <% end %>  
 <% end %>
+<div class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-half is-offset-one-quarter has-background-grey-lighter is-flex">
+        <div class="column is-two-fifths">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>           
 
-<%= render "users/shared/links" %>
+            <div class="field">
+              <div class="control">
+                <%= f.text_field :username, autofocus: true, placeholder: 'Username', class: 'input' %>
+              </div>              
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <%= f.email_field :email, autocomplete: "email", placeholder: 'Email', class: 'input' %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control"> 
+                <% if @minimum_password_length %>
+                  <span class='is-size-7'>(<%= @minimum_password_length %> characters minimum)</span>
+                <% end %><br />               
+                <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password', class: 'input' %>                
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Password confirmation', class: 'input' %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <%= f.submit "Sign up", class: 'button is-link is-fullwidth' %>
+              </div>
+            </div>  
+
+            <div class="field">
+              <div class="control">
+                <%- if controller_name != 'sessions' %>
+                  <%= link_to "Log in", new_session_path(resource_name), class: 'button is-success is-fullwidth' %><br />
+                <% end %>
+              </div>
+            </div>          
+            <div class="field">
+              <div class="control is-flex is-justify-content-center is-align-items-center">
+                <%- if devise_mapping.omniauthable? %>
+                  <%- resource_class.omniauth_providers.each do |provider| %>
+                    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post, class: '' %>
+                      <ion-icon name="logo-facebook"></ion-icon>
+                  <% end %>
+                <% end %>
+                
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+        <div class="column">
+            <div class="content">
+              <h1 class="title is-2 has-text-weight-bold has-text-link">railsbook</h1>
+              Connect with friends and the world around you on Railsbook.              
+            </div>
+            <%= link_to 'About', about_path%>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 

@@ -57,6 +57,17 @@ gem 'bulma-rails', '~> 0.9.3'
 
 gem 'material_icons'
 
+gem 'jquery-rails'
+
+# User Gravatar
+gem 'gravtastic'
+
+gem 'image_processing', '~> 1.2'
+
+# User Omniauth for login via FB
+gem 'omniauth-facebook'
+gem 'omniauth-rails_csrf_protection'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

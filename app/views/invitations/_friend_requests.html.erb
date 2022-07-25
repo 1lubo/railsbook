@@ -1,7 +1,7 @@
 <div class="column is-one-third">
     <h1>Respond to Your <%= current_user.pending_invitations.size %> Friend <%= (current_user.pending_invitations.size) == 1 ? 'Request' : 'Requests' %></h1>
     <br>
-    <%#= link_to 'Sent Requests ', class: 'is-size-7'%>
+    
     <% if current_user.pending_invitations.size < 1 %>
         <h2>You don't have any friend requests at the moment</h2>
     <% else %>
@@ -13,7 +13,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <figure class="image is-48x48">
-                                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder Image">
+                                        <%= image_tag user_avatar(User.find(request.user_id), 100), class: 'is-rounded'%>
                                     </figure>
                                 </div>
                                 <div class="media-content">

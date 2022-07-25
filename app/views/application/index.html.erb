@@ -1,6 +1,0 @@
-<h1>Railsbook is here!</h1>
-<% if current_user %>
-    <%= link_to 'Log out', destroy_user_session_path, data: {turbo_method: :delete}  %>
-<% else %>
-    <%= link_to 'Log in', new_user_session_path %>
-<% end %>

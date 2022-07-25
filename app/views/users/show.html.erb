@@ -1,0 +1,50 @@
+    
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-left">
+                <figure class="image is-128x128"><%= image_tag user_avatar(User.find(@user.id), 100), class: 'is-rounded'%></figure>
+            </div>
+            <div class="media-content">
+                <p class="title is-4"><%= @user.username %></p>
+                <p class="subtitle is-5">Joined <%= @user.created_at.strftime('%b %d, %Y')%></p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+<div class="content">
+    <% if @posts.nil? %>
+        <h1 class="is-2">User doesn't have any posts yet.</h1>
+    <% else %>
+        <% @posts.each do |post| %>
+            <% time = ""%>
+            <% if post.created_at > Time.now.beginning_of_day %>
+                <% time = "#{time_ago_in_words(post.created_at)} ago" %>
+            <% else %>
+                <% time = "#{post.created_at.strftime('%b %d, %Y')}" %>
+            <% end %>
+            <div class="column is-three-fifths">
+                <div class="hero">
+
+                    <div class="hero-body">
+                        
+                         <%= link_to post_path(post), class: 'is-info' do %>
+                            <p class="content" ><%= post.body %></p>
+                        <% end %>
+                        <footer>
+                            <span class="is-size-7"><%= post.likes.size %> <%= (post.likes.size) == 1 ? 'Like' : 'Likes' %></span>    
+                            <span class="is-size-7"><%= post.comments.size %> <%= (post.comments.size) == 1 ? 'Comment' : 'Comments' %></span> 
+                            <span class="is-size-7 ml-3"><%= time %></span>
+                        </footer>
+                    </div>
+                    
+                </div>
+            </div>
+        <% end %>
+    <% end%>
+
+
+</div>

@@ -8,16 +8,20 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%= javascript_include_tag :jquery, :jquery_ujs %>
+    <%= javascript_include_tag :application %>
   </head>
 
-  <body>   
+  <body>
+    
     <%= render 'layouts/error_messages' %>
+    
     <% if current_user %>
       <%= render 'layouts/navbar' %> 
     <% end %>    
     <div class="section">
       <%= yield %>
     </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
