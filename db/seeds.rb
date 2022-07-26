@@ -16,6 +16,8 @@ def assign_avatar!(user, index)
   end
 end
 
+@users = []
+
 names = [
   'Cole Owens',
   'Bennett Ramirez',
@@ -50,6 +52,34 @@ names = [
 ]
 
 names.each_with_index do |name, index|
-  user = User.create(username: name, email: "#{name.delete(' ')}@example.com", password: 'password')
+  date = Faker::Date.between(from: 2.years.ago, to: Date.today)
+  user = User.create(username: name, email: "#{name.delete(' ')}@example.com", password: 'password', created_at: date)
   assign_avatar!(user, index + 1)
+  @users << user
+end
+
+posts = []
+180.times do |i|
+  date = Faker::Date.between(from: 2.years.ago, to: Date.today)
+  body = case i
+         when 0..36 then Faker::GreekPhilosophers.quote
+         when 37..72 then Faker::Quotes::Shakespeare.hamlet_quote
+         when 73..108 then Faker::Quotes::Shakespeare.as_you_like_it_quote
+         when 109..144 then Faker::Quotes::Shakespeare.king_richard_iii_quote
+         else Faker::Quotes::Shakespeare.romeo_and_juliet_quote
+         end
+  posts << Post.create!(
+    body: body,
+    user_id: (@users[rand(@users.length)]).id,
+    created_at: date,
+    updated_at: date
+  )
+end
+
+user_indices = User.all.ids
+user_indices.length.times do |i|
+  user_indices_shuffle = user_indices.shuffle
+  (user_indices.length / 3).times do
+    Invitation.create!(user_id: user_indices[i], friend_id: user_indices_shuffle.sample, confirmed: true)
+  end
 end

@@ -59,6 +59,9 @@ gem 'material_icons'
 
 gem 'jquery-rails'
 
+# Use Faker to generate seed posts
+gem 'faker', '~> 2.1'
+
 # User Gravatar
 gem 'gravtastic'
 
