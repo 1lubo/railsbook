@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is a Facebook clone built with Ruby on Rails and bulma for styling. Read more [here](https://www.theodinproject.com/lessons/ruby-on-rails-rails-final-project)
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+Users cam
 
-* System dependencies
+- Sign in/Sign up (with Facebook)
+- Create posts
+- Like posts
+- Comment on posts
+- Reply to comments
+- Add friends
 
-* Configuration
+You can log in with any of the usernames from the seed file (e.g. Graig Valdez). The password for all users is _password_.
 
-* Database creation
+---
 
-* Database initialization
+You can try it out [here](https://boiling-hamlet-53376.herokuapp.com/)
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**HEADS UP**: Heroku server may need up to 30 sec to fire up a dyno. Be patient
