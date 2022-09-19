@@ -333,6 +333,7 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   config.omniauth :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'], token_params: { parse: :json }
+  config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
 
   # ==> Turbolinks configuration
   # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work correctly:

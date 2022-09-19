@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/omniauth/omniauth-github.git
+  revision: fa3e9cfb3c78c7cb26e641621d81b08627600cc2
+  branch: master
+  specs:
+    omniauth-github (2.0.0)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -364,6 +373,7 @@ DEPENDENCIES
   letter_opener
   material_icons
   omniauth-facebook
+  omniauth-github!
   omniauth-rails_csrf_protection
   pg (~> 1.1)
   puma (~> 5.0)
@@ -378,7 +388,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 2.7.6p219
 
 BUNDLED WITH
    2.3.15
