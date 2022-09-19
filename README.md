@@ -6,7 +6,7 @@ This project is a Facebook clone built with Ruby on Rails and bulma for styling.
 
 Users cam
 
-- Sign in/Sign up (with Facebook)
+- Sign in/Sign up (with ~~Facebook~~ Github)
 - Create posts
 - Like posts
 - Comment on posts
